@@ -1,0 +1,22 @@
+---
+- name: Installing python-pip packages using apt
+  become: true
+  apt:
+    pkg: "python-pip"
+    update_cache: yes
+    state: latest
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Installing python-pip packages using yum
+  become: true
+  yum:
+    pkg: "python-pip"
+    update_cache: yes
+    state: latest
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Installing python-pip packages using pacman
+  pacman:
+    name: "python-pip"
+    state: present
+  when: ansible_distribution == 'MacOSX'
